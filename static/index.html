@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+      <script src="https://cdn.jsdelivr.net/pyodide/v0.22.0/full/pyodide.js"></script>
+  </head>
+  <body>
+  <style>
+    input {
+        padding: 100px;
+    }
+    label {
+       visibility: hidden; 
+    }
+  </style>
+    <script type="text/javascript">
+      const clickHandler = ()=> {
+        console.log(pyodide.runPython(
+        `
+from js import document
+
+def getAndReturnText():
+  abctext = document.getElementById("abcinput")
+  return abctext.value
+        `));
+
+      }
+      async function main(){
+        let pyodide = await loadPyodide();
+        let zipResponse = await fetch("abc2xml.tgz");
+        let zipBinary = await zipResponse.arrayBuffer();
+        pyodide.unpackArchive(zipBinary, "tgz");
+        const button = document.getElementById("convertbutton")
+        button.addEventListener("click", clickHandler)
+        
+      }
+      main();
+    </script>
+    <label for="abcinput">ABC input</label>
+    <button id="convertbutton"> Convert to music xml</button>
+    <textarea id="abcinput" rows="20" cols="50"></textarea>
+  </body>
+</html>
