@@ -19,11 +19,12 @@
         `
 from js import document
 from pkg import run
+run.getAndReturnText()
         `));
 
       }
         let pyodide = await loadPyodide();
-        let zipResponse = await fetch("abc2xml.tgz");
+        let zipResponse = await fetch("abc.tgz");
         let zipBinary = await zipResponse.arrayBuffer();
         pyodide.unpackArchive(zipBinary, "tgz");
         const button = document.getElementById("convertbutton")
