@@ -14,10 +14,10 @@ See the Lesser GNU General Public License for more details. <http://www.gnu.org/
 '''
 
 from functools import reduce
-from pyparsing import Word, OneOrMore, Optional, Literal, NotAny, MatchFirst
-from pyparsing import Group, oneOf, Suppress, ZeroOrMore, Combine, FollowedBy
-from pyparsing import srange, CharsNotIn, StringEnd, LineEnd, White, Regex
-from pyparsing import nums, alphas, alphanums, ParseException, Forward
+from pkg.pyparsing import Word, OneOrMore, Optional, Literal, NotAny, MatchFirst
+from pkg.pyparsing import Group, oneOf, Suppress, ZeroOrMore, Combine, FollowedBy
+from pkg.pyparsing import srange, CharsNotIn, StringEnd, LineEnd, White, Regex
+from pkg.pyparsing import nums, alphas, alphanums, ParseException, Forward
 try:    import xml.etree.cElementTree as E
 except: import xml.etree.ElementTree as E
 import types, sys, os, re, datetime

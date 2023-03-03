@@ -14,6 +14,9 @@
   </style>
     <script type="text/javascript">
       async function main(){
+        let pyodide = await loadPyodide();
+        let zipResponse = await fetch("abc.tgz");
+        let zipBinary = await zipResponse.arrayBuffer();
       const clickHandler = ()=> {
         console.log(pyodide.runPython(
         `
@@ -23,9 +26,6 @@ run.convert()
         `));
 
       }
-        let pyodide = await loadPyodide();
-        let zipResponse = await fetch("abc.tgz");
-        let zipBinary = await zipResponse.arrayBuffer();
         pyodide.unpackArchive(zipBinary, "tgz");
         const button = document.getElementById("convertbutton")
         button.addEventListener("click", clickHandler)

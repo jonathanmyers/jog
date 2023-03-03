@@ -1,5 +1,6 @@
-from js import document
 import urllib.parse
+from js import document
+from pkg import abc2xml
 
 def getAndReturnText()-> str:
  abctext = document.getElementById("abcinput")
@@ -7,7 +8,7 @@ def getAndReturnText()-> str:
 
 def download(filename, text):
  element = document.createElement('a')
- element.setAttribute('href', 'data:text/plain;charset=utf-8,' + urllib.parse.quote_plus(text))
+ element.setAttribute('href', 'data:text/plain;charset=utf-8,' + text)
  element.setAttribute('download', filename)
  element.style.display = 'none'
  document.body.appendChild(element)
@@ -16,4 +17,6 @@ def download(filename, text):
 
 def convert():
   text = getAndReturnText()
-  download("test.musicxml", text)
+  xml = abc2xml.getXmlDocs(text)
+  xml_str = abc2xml.fixDoctype(xml[0])
+  download("test.musicxml", xml_str)
