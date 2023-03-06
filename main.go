@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"io/fs"
 	"log"
 	"net/http"
 )
@@ -10,11 +11,16 @@ import (
 var content embed.FS
 
 func main() {
-	fs := http.FileServer(http.FS(content))
+	serverRoot, err := fs.Sub(content, "static")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fs := http.FileServer(http.FS(serverRoot))
 	http.Handle("/", fs)
 
 	log.Print("Listening on :8080...")
-	err := http.ListenAndServe(":8080", nil)
+	err = http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
