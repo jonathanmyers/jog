@@ -1,6 +1,6 @@
-import urllib.parse
 from js import document
 from pkg import abc2xml
+import xml.etree.ElementTree as ET
 
 def getAndReturnText()-> str:
  abctext = document.getElementById("abcinput")
@@ -19,4 +19,11 @@ def convert():
   text = getAndReturnText()
   xml = abc2xml.getXmlDocs(text)
   xml_str = abc2xml.fixDoctype(xml[0])
-  download("test.musicxml", xml_str)
+  title = get_title(xml_str)
+  download(title, xml_str)
+
+def get_title(xml):
+  tree = ET.ElementTree(ET.fromstring(xml))
+  root = tree.getroot()
+  title = root.find("work/work-title")
+  return title.text
